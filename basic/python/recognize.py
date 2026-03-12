@@ -4,6 +4,8 @@ from PIL import Image
 import pytesseract
 import sys
 
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
 def recognize_captcha(img_path):
     im = Image.open(img_path).convert("L")
     # 1. threshold the image
@@ -24,8 +26,8 @@ def recognize_captcha(img_path):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print "Usage: python recognize.py <image_filename>"
+        print("Usage: python recognize.py <image_filename>")
     res = recognize_captcha(sys.argv[1])
     strs = res.split("\n")
     if len(strs) >=1:
-        print strs[0]
+        print(strs[0])
