@@ -10,11 +10,11 @@ def load_dataset():
     y = []
 
     for i in range(60):
-        path = "./dataset/%d%d.png" % (i / 6, i % 6 + 1)
+        path = "./dataset/%d%d.png" % (i // 6, i % 6 + 1)
         pix = np.array(Image.open(path).convert("L"))
         # print(pix.reshape(8*20).shape)
         X.append(pix.reshape(8*20))
-        y.append(i/6)
+        y.append(i // 6)
     return np.array(X), np.array(y)
 
 
@@ -38,7 +38,7 @@ def split_letters(path):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print "Usage: python recognizer.py <image_filename>"
+        print("Usage: python recognizer.py <image_filename>")
 
     letters = split_letters(sys.argv[1])
 
@@ -46,4 +46,4 @@ if __name__ == "__main__":
     knn = KNeighborsClassifier(n_neighbors=5)
     knn.fit(X, y)
 
-    print knn.predict(letters)
+    print(knn.predict(letters))
