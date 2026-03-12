@@ -18,9 +18,12 @@ def recognize_captcha(img_path):
             table.append(1)
 
     out = im.point(table, '1')
-    # out.show()
-    # 2. recognize with tesseract
-    num = pytesseract.image_to_string(out)
+    out.save("processed_image.jpg")
+    print("Saved processed image to processed_image.jpg")
+    
+    # 2. recognize with tesseract using PSM 8 (Single Word) and an alphanumeric whitelist
+    custom_config = r'--psm 8 -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    num = pytesseract.image_to_string(out, config=custom_config)
     return num
 
 
